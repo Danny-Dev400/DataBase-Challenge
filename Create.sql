@@ -61,3 +61,38 @@ INSERT INTO Children (idChild, idEmployee, fullName, birthDate, gender) VALUES (
 INSERT INTO Children (idChild, idEmployee, fullName, birthDate, gender) VALUES ('5', '92', 'Maron', '2017-10-01', 'Female');
 
 Select * From Employee;
+
+Select * From employee;
+Select * From institution;
+
+-- primer punto
+
+create table institution(
+	idInstitution INT AUTO_INCREMENT PRIMARY KEY,
+    idEmployee INT NOT NULL,
+    institutionName VARCHAR(60) NOT NULL,
+    career VARCHAR(60) NOT NULL,
+    academicDegree VARCHAR(60) NOT NULL,
+    CONSTRAINT 	FK_idEmployeeIns  FOREIGN KEY (idEmployee)  
+					REFERENCES Employee(idEmployee)
+                    ON DELETE CASCADE
+					ON UPDATE CASCADE 
+);
+
+INSERT INTO institution (idEmployee, institutionName, career, academicDegree) 
+VALUES ('74', 'UMNG', 'Ingenieria Multimedia', 'Pregrado'),
+('74', 'Sabana', 'Maestria en ciencia de datos', 'Maestria'),
+('83', 'Nacional', 'Ingenieria de sistemas', 'Pregrado'),
+('92', 'Nacional', 'Ingenieria de sistemas', 'Pregrado'),
+('95', 'Sergio Arboleda', 'Ingenieria electronica', 'Pregrado');
+
+
+-- segundo punto
+select e.firstName, i.* from Employee e inner join institution i on e.idEmployee = i.idEmployee;
+
+-- tercer punto
+select * from children;
+
+select * from children where idEmployee in (
+	select e.idEmployee from employee e where e.idCompany = 5
+);
